@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/customers")
+@WebServlet(name = "CustomerServlet", urlPatterns = "/")
 public class CustomerServlet extends HttpServlet {
 
     private CustomerService customerService = new CustomerServiceImpl();
@@ -78,7 +78,7 @@ public class CustomerServlet extends HttpServlet {
 
         Customer customer = new Customer(id, name, email, address);
         this.customerService.save(customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/customer/create.jsp");
         request.setAttribute("message", "New customer was created");
         try {
             dispatcher.forward(request, response);
@@ -112,7 +112,7 @@ public class CustomerServlet extends HttpServlet {
         List<Customer> customers = this.customerService.findAll();
         request.setAttribute("customers", customers);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
